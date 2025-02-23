@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getPosts, createPost, deletePost } from "../services/api";
+import { getPosts, createPost, deletePost} from "../services/api";
+import PostForm from "../components/PostForm";
 
 function Home() {
   const [posts, setPosts] = useState<{ id: number; title: string; body: string }[]>([]);
@@ -22,19 +23,53 @@ function Home() {
   }, []);
 
   const handleAdd = async () => {
-    const newPost = { title, body };
-    const res = await createPost(newPost);
-    setPosts([res.data, ...posts]);
+    if (!title || !body) {
+      setError("Title and body are required.");
+      return;
+    }
+
+    try {
+      const newPost = { title, body };
+      const createdPost = await createPost(newPost);
+      setPosts([createdPost, ...posts]);
+      setTitle("");
+      setBody("");
+      setError(null);
+    } catch (error) {
+      console.error("Failed to create post:", error);
+      setError("Failed to create post. Please try again.");
+    }
   };
 
+  // Handle deleting an post
   const handleDelete = async (id: number) => {
-    await deletePost(id);
-    setPosts(posts.filter((post) => post.id !== id));
+    try {
+      await deletePost(id);
+      setPosts(posts.filter((post) => post.id !== id));
+      setError(null);
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+      setError("Failed to delete post. Please try again.");
+    }
   };
+
+
+
 
   return (
     <div className="max-w-lg mx-auto p-4">
       <h1 className="text-xl font-bold">Posts List</h1>
+
+      <div className="my-12">
+      <PostForm
+                title={title}
+                setTitle={setTitle}
+                body={body}
+                setBody={setBody}
+                onAdd={handleAdd}
+            />
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+        </div>
       <div className="my-4">
         <input
           className="border p-2 rounded w-full"

@@ -30,10 +30,17 @@ export const getPosts = async () => {
   }
 };
 
+// Used to delete posts
+let idCounter = 101; // API Post IDs end at 100
+
 export const createPost = async (data: { title: string; body: string }) => {
   try {
-    const response = await axios.post(API_URL, data);
-    return response.data;
+    // Generate a unique ID locally
+    const uniqueId = idCounter++;
+    const newItem = { ...data, id: uniqueId }; // Add the unique ID to the new item
+
+    const response = await axios.post(API_URL, newItem);
+    return { ...response.data, id: uniqueId };
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Axios error:", error.message);

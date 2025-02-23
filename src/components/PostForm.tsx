@@ -21,4 +21,4 @@ const PostForm = ({ title, setTitle, body, setBody, onAdd }: { title: string; se
     );
     };
     
-    export default PostForm;
+export default PostForm;

@@ -1,3 +1,13 @@
+# 101Posts App
+Website: https://101-posts-app.vercel.app/
+
+# How to Run
+
+git clone git@github.com:Raiyan-R11/101PostsApp.git
+cd 101PostsApp
+npm install
+npm run dev
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -48,3 +58,4 @@ export default tseslint.config({
   },
 })
 ```
+

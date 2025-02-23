@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getPosts, createPost, deletePost} from "../services/api";
+import { getPosts, createPost, deletePost, updatePost} from "../services/api";
 import PostForm from "../components/PostForm";
+import PostList from "../components/PostList";
 
 function Home() {
   const [posts, setPosts] = useState<{ id: number; title: string; body: string }[]>([]);
@@ -53,7 +54,18 @@ function Home() {
     }
   };
 
-
+  const handleUpdate = async (id: number, updatedPost: { title: string; body: string }) => {
+    try {
+      const updatedData = await updatePost(id, updatedPost);
+      setPosts((prevPosts) =>
+        prevPosts.map((post) => (post.id === id ? { ...post, ...updatedData } : post))
+      );
+      setError(null);
+    } catch (error) {
+      console.error("Failed to update post:", error);
+      setError("Failed to update post. Please try again.");
+    }
+  };
 
 
   return (
@@ -70,36 +82,8 @@ function Home() {
             />
             {error && <p className="text-red-500 mb-4">{error}</p>}
         </div>
-      <div className="my-4">
-        <input
-          className="border p-2 rounded w-full"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <textarea
-          className="border p-2 rounded w-full mt-2"
-          placeholder="Description"
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-        />
-        <button className="bg-blue-500 text-white px-4 py-2 rounded mt-2" onClick={handleAdd}>
-          Add Posts
-        </button>
-      </div>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id} className="border p-2 mb-2 flex justify-between">
-            <div>
-              <h2 className="font-semibold">{post.title}</h2>
-              <p>{post.body}</p>
-            </div>
-            <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => handleDelete(post.id)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+      
+      <PostList posts={posts} onDelete={handleDelete} onUpdate={handleUpdate} />
     </div>
   );
 }

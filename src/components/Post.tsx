@@ -20,7 +20,7 @@ const Post = ({
     };
 
     return (
-        <li className="border border-gray-500 p-1 mb-2 flex justify-between text-white rounded-lg shadow-md p-4 odd:bg-gray-700 even:bg-gray-800">
+        <li className="border border-gray-500 p-4 mb-2 flex justify-between text-white rounded-lg shadow-md p-4 odd:bg-gray-700 even:bg-gray-800">
         {isEditing ? (
             <div className="flex flex-col gap-2 w-full pr-2">
             <input
@@ -42,23 +42,23 @@ const Post = ({
             </button>
             </div>
         ) : (
-            <div className="flex-grow pr-2">
-            <h2 className="font-semibold">{post.title}</h2>
+            <div className="flex-grow pr-2 leading-relaxed">
+            <h2 className="font-semibold mb-2">{post.title}</h2>
             <p>{post.body}</p>
             </div>
         )}
         <div className="flex flex-col md:flex-row gap-2">
             <button
-            className="transition duration-200 ease-in-out bg-blue-400 hover:bg-blue-600 text-white px-2 py-1 rounded"
+            className="transition duration-200 ease-in-out bg-blue-400 hover:bg-blue-600 text-white px-2 py-1 rounded-lg"
             onClick={() => setIsEditing(!isEditing)}
             >
-            {isEditing ? "Cancel" : "Edit"}
+            {isEditing ? "Cancel" : "Edit ✏️"}
             </button>
             <button
-            className="transition duration-200 ease-in-out bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded"
+            className="transition duration-200 ease-in-out bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-lg"
             onClick={() => onDelete(post.id)}
             >
-            Delete
+            Delete ❌
             </button>
         </div>
         </li>

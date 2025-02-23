@@ -3,6 +3,8 @@ import { getPosts, createPost, deletePost, updatePost} from "../services/api";
 import PostForm from "../components/PostForm";
 import PostList from "../components/PostList";
 import Footer from "../components/Footer";
+import FilterInput from "../components/FilterInput";
+import SortButton from "../components/SortButton";
 
 function Home() {
   const [posts, setPosts] = useState<{ id: number; title: string; body: string }[]>([]);
@@ -100,7 +102,13 @@ function Home() {
         </div>
       
         <div className="mt-12">
-        <input
+        <FilterInput filterTerm={filterTerm} setFilterTerm={setFilterTerm} />
+        <div className="flex justify-between">
+          <label className="text-xl font-bold text-white">List of Posts</label>
+          <SortButton sortOrder={sortOrder} setSortOrder={setSortOrder} />
+        </div>
+        
+        {/* <input
             type="text"
             placeholder="Filter Posts by Title..."
             value={filterTerm}
@@ -115,11 +123,8 @@ function Home() {
             >
                 Sort by Title ({sortOrder === "asc" ? "A->Z" : "Z->A"})
             </button>
-        </div>
-        
-        
+        </div> */}
       </div>
-
       <PostList posts={filteredAndSortedPosts} onDelete={handleDelete} onUpdate={handleUpdate} />
       <Footer />
     </div>

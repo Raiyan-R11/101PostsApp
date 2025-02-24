@@ -1,18 +1,18 @@
 import Post from "./Post";
 
-interface PostList {
+interface PostListProps {
   posts: { id: number; title: string; body: string }[];
   onDelete: (id: number) => void;
   onUpdate: (id: number, updatedPost: { title: string; body: string }) => void;
 }
 
-const PostList: React.FC<PostList> = ({
+const PostList: React.FC<PostListProps> = ({
   posts,
   onDelete,
   onUpdate,
 }) => {
   return (
-    <ul className="animate-fade-in">
+    <ul>
       {posts.map((post) => (
         <Post key={post.id} post={post} onDelete={onDelete} onUpdate={onUpdate} />
       ))}

@@ -1,13 +1,15 @@
 import { useState } from "react";
 
-const Post = ({ 
-    post, 
-    onDelete,
-    onUpdate,
-}: { 
+interface PostProps {
     post: { id: number; title: string; body: string }; 
     onDelete: (id: number) => void;
     onUpdate: (id: number, updatedPost: {title: string; body: string})=>void;
+}
+
+const Post: React.FC<PostProps> = ({ 
+    post, 
+    onDelete,
+    onUpdate,
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);//

@@ -105,15 +105,22 @@ function Home() {
           body={body}
           setBody={setBody}
           onAdd={handleAdd}
+          error={error}
         />
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+        
       </div>
       
       <div className="mt-12">
-        <FilterInput filterTerm={filterTerm} setFilterTerm={setFilterTerm} />
+        <FilterInput 
+          filterTerm={filterTerm} 
+          setFilterTerm={setFilterTerm} 
+        />
         <div className="flex justify-between">
           <label className="text-xl font-bold text-white">List of Posts</label>
-          <SortButton sortOrder={sortOrder} setSortOrder={setSortOrder} />
+          <SortButton 
+            sortOrder={sortOrder} 
+            setSortOrder={setSortOrder} 
+          />
         </div>
       </div>
 

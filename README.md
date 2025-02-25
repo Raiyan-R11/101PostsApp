@@ -23,5 +23,6 @@ Front-end
 - Typescript
 - React JS
 - Axios
+
 API
 - JSONPlaceholder (https://jsonplaceholder.typicode.com/)
